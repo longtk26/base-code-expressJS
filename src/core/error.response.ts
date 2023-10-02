@@ -1,32 +1,34 @@
-const StatusCode = {
-    FORBIDDEN: 403,
-    CONFLICT: 409,
-}
+import httpStatusCode from "../utils/httpStatusCode";
 
-const ReasonStatusCode = {
-    FORBIDDEN: "Bad request error",
-    CONFLICT: "Conflict error"
-}
+const { StatusCode, ReasonPhrases } = httpStatusCode;
 
 class ErrorResponse extends Error {
-    status: number;
+  private status: number;
 
-    constructor(message:string, status:number) {
-        super(message);
-        this.status = status;
-    }
+  constructor(message: string, status: number) {
+    super(message);
+    this.status = status;
+  }
 }
 
 class BadRequestError extends ErrorResponse {
-    constructor(message=ReasonStatusCode.FORBIDDEN, statusCode=StatusCode.FORBIDDEN) {
-        super(message, statusCode)
-    }
+  constructor(
+    message = ReasonPhrases.FORBIDDEN,
+    statusCode = StatusCode.FORBIDDEN
+  ) {
+    super(message, statusCode);
+  }
 }
 
 class ConflictRequestError extends ErrorResponse {
-    constructor(message=ReasonStatusCode.CONFLICT, statusCode=StatusCode.CONFLICT) {
-        super(message, statusCode)
-    }
+  constructor(
+    message = ReasonPhrases.CONFLICT,
+    statusCode = StatusCode.CONFLICT
+  ) {
+    super(message, statusCode);
+  }
 }
 
-export {ConflictRequestError, BadRequestError}
+// Others class errors
+
+export { ConflictRequestError, BadRequestError };
